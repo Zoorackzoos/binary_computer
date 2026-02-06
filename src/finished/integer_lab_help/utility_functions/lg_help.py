@@ -1,21 +1,20 @@
 import math
-from unittest import case
 
-from src.decimal_to_binary.thirty_two_bit_decimal_to_binary_array import thirty_two_bit_decimal_to_binary_array_no_print_statements
+from src.decimal_to_binary.thirty_two_bit.thirty_two_bit_unsigned_decimal_to_binary_array import thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements
 
 def intro_lg():
     print("testing for what the hell lg wants")
-    print(thirty_two_bit_decimal_to_binary_array_no_print_statements(8))
-    print(thirty_two_bit_decimal_to_binary_array_no_print_statements(math.log2(8)))
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(8))
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(math.log2(8)))
     print()
-    print(thirty_two_bit_decimal_to_binary_array_no_print_statements(16))
-    print(thirty_two_bit_decimal_to_binary_array_no_print_statements(math.log2(16)))
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(16))
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(math.log2(16)))
     print()
-    print(thirty_two_bit_decimal_to_binary_array_no_print_statements(32))
-    print(thirty_two_bit_decimal_to_binary_array_no_print_statements(math.log2(32)))
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(32))
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(math.log2(32)))
     print()
-    print(thirty_two_bit_decimal_to_binary_array_no_print_statements(64))
-    print(thirty_two_bit_decimal_to_binary_array_no_print_statements(math.log2(64)))
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(64))
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(math.log2(64)))
     print("there's no strict easy pattern here unless you have some mutned ass algorithm that checks bits like an array. and we can't do that.")
     print()
     """
@@ -27,7 +26,7 @@ def intro_lg():
     print("compare some values")
 
     for i in range(32):
-        print(prototype_lg(math.pow(2,i)), " == ", math.log2(math.pow(2,i)),"<--", math.pow(2,i), " --> \n\t\t\t\t\t\t\t\t\t\t", thirty_two_bit_decimal_to_binary_array_no_print_statements(decimal=math.pow(2, i)))
+        print(prototype_lg(math.pow(2,i)), " == ", math.log2(math.pow(2,i)),"<--", math.pow(2,i), " --> \n\t\t\t\t\t\t\t\t\t\t", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=math.pow(2, i)))
 
 """
 /**

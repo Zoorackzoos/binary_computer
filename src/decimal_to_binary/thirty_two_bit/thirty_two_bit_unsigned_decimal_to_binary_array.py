@@ -1,6 +1,6 @@
 import math
 
-def thirty_two_bit_decimal_to_binary_array(decimal, tab_amount="\t"):
+def thirty_two_bit_unsigned_decimal_to_binary_array(decimal, tab_amount="\t"):
     print(tab_amount,"thirty_two_bit_decimal_to_binary_array")
     tab_amount += "\t"
 
@@ -57,7 +57,7 @@ def thirty_two_bit_decimal_to_binary_array(decimal, tab_amount="\t"):
 
     return return_array
 
-def thirty_two_bit_decimal_to_binary_array_no_print_statements(decimal):
+def thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal):
 
     return_array = []
 
@@ -90,4 +90,4 @@ def thirty_two_bit_decimal_to_binary_array_no_print_statements(decimal):
     return return_array
 
 if __name__ == "__main__":
-    print(thirty_two_bit_decimal_to_binary_array(2))
+    print(thirty_two_bit_unsigned_decimal_to_binary_array(2))
