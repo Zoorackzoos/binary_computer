@@ -16,11 +16,12 @@ def intro_exponentiate():
     print(prototype_exponentiate(0))
     print(prototype_exponentiate(1))
     print(prototype_exponentiate(2))
+    print(prototype_exponentiate(10))
 
 def prototype_exponentiate(exponent):
     # 0 isn't allowed. so that edge case goes out the window
     # 32 isalso not allowed. though that doesn't matter in our prototype.
-    return 2 << exponent
+    return 1 << exponent
 
 if __name__ == "__main__":
     intro_exponentiate()
