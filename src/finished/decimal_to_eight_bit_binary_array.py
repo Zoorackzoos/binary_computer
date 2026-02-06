@@ -82,6 +82,8 @@ def decimal_to_eight_bit_binary_array_no_print_statements(decimal):
             return_array.append(0)
 
         n -= 1
+        four_bit_readability_counter += 1
+        infinite_loop_counter += 1
 
     return return_array
 
