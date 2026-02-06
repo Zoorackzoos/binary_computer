@@ -21,5 +21,35 @@ def prototype_exponentiate(exponent):
     # 32 isalso not allowed. though that doesn't matter in our prototype.
     return 2 << exponent
 
+
+def intro_lg():
+    print("testing for what the hell lg wants")
+    print(decimal_to_eight_bit_binary_array_no_print_statements(8))
+    print(decimal_to_eight_bit_binary_array_no_print_statements(math.log2(8)))
+    print()
+    print(decimal_to_eight_bit_binary_array_no_print_statements(16))
+    print(decimal_to_eight_bit_binary_array_no_print_statements(math.log2(16)))
+    print()
+    print(decimal_to_eight_bit_binary_array_no_print_statements(32))
+    print(decimal_to_eight_bit_binary_array_no_print_statements(math.log2(32)))
+    print()
+    print(decimal_to_eight_bit_binary_array_no_print_statements(64))
+    print(decimal_to_eight_bit_binary_array_no_print_statements(math.log2(64)))
+    print("comapre the binary literals with my super awesome funciton :DDDD")
+    print((prototype_lg(8)))
+    print((prototype_lg(16)))
+    print((prototype_lg(32)))
+
+"""
+/**
+ * Determines the base-two logarithm of an integer that is a power of two.
+ * foo == exponentiate(bar) <--> bar == lg(foo). The argument must be a positive power of two.
+ * @param power_of_two the value whose logarithm will be determined
+ * @return base-2 logarithm of the argument
+ */
+ """
+def prototype_lg(power_of_two):
+    pass
+
 if __name__ == "__main__":
     intro_exponentiate()
