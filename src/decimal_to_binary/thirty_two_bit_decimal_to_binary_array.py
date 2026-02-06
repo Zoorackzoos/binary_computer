@@ -1,7 +1,7 @@
 import math
 
-def decimal_to_eight_bit_binary_array(decimal, tab_amount="\t"):
-    print(tab_amount,"decimal_to_binary")
+def thirty_two_bit_decimal_to_binary_array(decimal, tab_amount="\t"):
+    print(tab_amount,"thirty_two_bit_decimal_to_binary_array")
     tab_amount += "\t"
 
     return_array = []
@@ -10,14 +10,15 @@ def decimal_to_eight_bit_binary_array(decimal, tab_amount="\t"):
 
     # the reason it has to be a certain bit values is because of my methods
     # when you want to go from 4bits to 8 bits or whatever. go here.
-    n = 7
+    n = 31
     print(tab_amount, "n = ", n)
 
     # yeah yeah i know.
     infinite_loop_counter = 0
+    infinit_loop_counter_limit = 100
     print(tab_amount, "infinite_loop_counter = ", infinite_loop_counter)
 
-    while decimal >= 0 and n >= 0 and infinite_loop_counter < 20:
+    while decimal >= 0 and n >= 0 and infinite_loop_counter < infinit_loop_counter_limit:
         print(tab_amount + "\t", "while iteration")
         print(tab_amount + "\t\t", "Ox_decimal = ", decimal)
 
@@ -56,7 +57,7 @@ def decimal_to_eight_bit_binary_array(decimal, tab_amount="\t"):
 
     return return_array
 
-def decimal_to_eight_bit_binary_array_no_print_statements(decimal):
+def thirty_two_bit_decimal_to_binary_array_no_print_statements(decimal):
 
     return_array = []
 
@@ -64,12 +65,13 @@ def decimal_to_eight_bit_binary_array_no_print_statements(decimal):
 
     # the reason it has to be a certain bit values is because of my methods
     # when you want to go from 4bits to 8 bits or whatever. go here.
-    n = 7
+    n = 31
 
     # yeah yeah i know.
     infinite_loop_counter = 0
+    infinite_loop_counter_limit = 100
 
-    while decimal >= 0 and n >= 0 and infinite_loop_counter < 20:
+    while decimal >= 0 and n >= 0 and infinite_loop_counter < infinite_loop_counter_limit:
 
         if four_bit_readability_counter == 4:
             return_array.append(" ")
@@ -88,4 +90,4 @@ def decimal_to_eight_bit_binary_array_no_print_statements(decimal):
     return return_array
 
 if __name__ == "__main__":
-    print(decimal_to_eight_bit_binary_array(12))
+    print(thirty_two_bit_decimal_to_binary_array(2))

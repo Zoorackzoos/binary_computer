@@ -1,4 +1,4 @@
-from src.finished.decimal_to_eight_bit_binary_array import decimal_to_eight_bit_binary_array
+from src.decimal_to_binary.decimal_to_eight_bit_binary_array import eight_bit_decimal_to_binary_array
 
 def Ox_eight_bit_to_binary_array(Ox, tab_amount="\t"):
     print(tab_amount,"Ox_to_binary_array")
@@ -25,6 +25,6 @@ def Ox_eight_bit_to_binary_array(Ox, tab_amount="\t"):
     Ox_decimal = int(Ox)
     print(tab_amount,"Ox_decimal = ",Ox_decimal)
 
-    return_array = decimal_to_eight_bit_binary_array(Ox_decimal, tab_amount=tab_amount)
+    return_array = eight_bit_decimal_to_binary_array(Ox_decimal, tab_amount=tab_amount)
 
     return return_array
