@@ -8,6 +8,15 @@ def zero_extend_intro():
     print(sixteen_bit_signed_decimal_to_binary_array_no_print_statements( zero_extend_help(value=2,from_size=8,to_size=16)))
     print(sixteen_bit_signed_decimal_to_binary_array_no_print_statements( zero_extend_help(value=2,from_size=16,to_size=32)))
     print("an issue with this is that you can't see this on the python front. \n so i would have to implment my decimal to binary bullshit on C for this to work good. which i could do if i had more time. I DON\'t")
+    print(0xABCDEF30)
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=0xABCDEF30))
+    print(0xABCD0030)
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=0xABCD0030))
+    print()
+    print(0xABCDEF30)
+    print(0x00000030)
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=0xABCDEF30))
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=0x00000030))
 
 def zero_extend_help(value, from_size, to_size):
     """
