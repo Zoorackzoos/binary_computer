@@ -22,49 +22,43 @@ def new_zero_extend_intro():
     print("new_zero_extend_intro")
     print("test 1")
     #intended output = 2882338864
-    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements( zero_extend_help(value=2882400048,from_size=8,to_size=16)) )
+    test_1_output = zero_extend_help(value=2882400048,from_size=8,to_size=16)
+    print(test_1_output)
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(test_1_output))
     print()
     print("test 2")
     #intended output = 48
-    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements( zero_extend_help(value=2882400048,from_size=8,to_size=32)) )
+    test_2_output = zero_extend_help(value=2882400048,from_size=8,to_size=32)
+    print(test_2_output)
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(test_2_output))
+
 
 def zero_extend_help(value, from_size, to_size):
-    """
-    typedef enum {
-        ONE_BYTE    = 8,
-        TWO_BYTES   = 16,
-        FOUR_BYTES  = 32,
-    } data_size_t;
-    """
+    # Create mask for bits [from_size, to_size) that need to be zeroed
 
-    """
-    1. make a bitmask with the data_size_t vars
-    2. make the value binary literal's range, based off of that bitmask, 0
-        a. use ^ i think.
-    3. spit out the binary literal, that 0ing causes.
-   """
+    # Mask with 1s in positions [0, from_size)
+    lower_mask = ~(0xFFFFFFFF << from_size) & 0xFFFFFFFF
 
-    """ make bitmask """
-    # same as 0x11111111 <- 8 ones
-    #                        0b1111'1111'1111'1111'1111'1111'1111'1111;
-    four_byte_bit_mask_component_one = 0b11111111111111111111111111111111
-    four_byte_bit_mask_component_two = 0b11111111111111111111111111111111
-    four_byte_bit_mask_component_one = four_byte_bit_mask_component_one >> to_size
-    four_byte_bit_mask_component_two = four_byte_bit_mask_component_two << from_size
+    # Mask with 1s in positions [to_size, 32)
+    if to_size >= 32:
+        upper_mask = 0
+    else:
+        upper_mask = 0xFFFFFFFF << to_size
 
-    print("\tfour_byte_bit_mask_component_one")
-    print("\t\t",thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(four_byte_bit_mask_component_one))
-    print("\tfour_byte_bit_mask_component_two")
-    print("\t\t",thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(four_byte_bit_mask_component_two))
-    four_byte_bit_mask_full = four_byte_bit_mask_component_one & four_byte_bit_mask_component_two
+    # Combine: keep lower bits and upper bits
+    keep_mask = lower_mask | upper_mask
 
-    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=four_byte_bit_mask_full))
-    print(thirty_two_bit_signed_decimal_to_binary_array_no_print_statements(decimal=~four_byte_bit_mask_full))
-    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=value))
+    print("\tlower_mask")
+    print("\t\t", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(lower_mask))
+    print("\tupper_mask")
+    print("\t\t", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(upper_mask))
+    print("\tkeep_mask")
+    print("\t\t", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(keep_mask))
+    print("\tvalue")
+    print("\t\t", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(value))
     print()
-    """ collide value binary literal, with bit mask """
 
-    return value & ~four_byte_bit_mask_full
+    return value & keep_mask
 
 if __name__ == "__main__":
     new_zero_extend_intro()
