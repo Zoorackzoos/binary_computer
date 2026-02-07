@@ -6,8 +6,6 @@ TWO_BYTES = 16
 FOUR_BYTES = 32
 
 def sign_extend_intro():
-    print("fuck this shit man i just wanna take adderal and goon until i die.")
-
     """
     typedef enum {
         ONE_BYTE    = 8,
@@ -41,72 +39,107 @@ def sign_extend_intro():
     print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=test_1_input_value))
     print(test_1_expected_result)
     print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=test_1_expected_result))
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=sign_extend(value=test_1_input_value,from_size=ONE_BYTE,to_size=TWO_BYTES)))
 
 
 def sign_extend(value, from_size, to_size):
     """
-    * Sign-extends a value from a smaller data size to a larger data size.
-     *
-     * The lower `from_size` bits of `value` are interpreted as a signed integer in
-     * two’s-complement representation. Those bits are copied unchanged into the
-     * result. Bits between `from_size` and `to_size` are filled with copies of the
-     * sign bit (bit `from_size - 1`). All bits above the lower `to_size` bits are
-     * unchanged from the original value.
-     *
-     * For example, sign-extending an 8-bit (`ONE_BYTE`) value to 16 bits
-     * (`TWO_BYTES`) copies bit 7 into bits 15..8, while preserving the original
-     * lower 8 bits and leaving bits 31..16 unchanged.
-     *
-     * @pre `to_size` >= `from_size`
-     * @pre `to_size` and `from_size` must be 8 (`ONE_BYTE`), 16 (`TWO_BYTES`), or 32 (`FOUR_BYTES`)
+    Sign-extends a value from a smaller data size to a larger data size.
 
-    :param value: The original value containing the bits to be extended.
-    :param from_size: The size (in bits) of the original signed value.
-    :param to_size: The size (in bits) of the destination value.
-    :return: The sign-extended value.
+    The lower `from_size` bits of `value` are interpreted as a signed integer in
+    two's-complement representation. Those bits are copied unchanged into the
+    result. Bits between `from_size` and `to_size` are filled with copies of the
+    sign bit (bit `from_size - 1`). All bits above the lower `to_size` bits are
+    unchanged from the original value.
     """
-    sign_bit = 0
-    if from_size == ONE_BYTE:
-        #                                         ----------
-        #          0b0000'0000'0000'0000'0000'0000'1000'0000
-        sign_bit = 0x00000010
-    elif from_size == TWO_BYTES:
-        #                               ----------
-        #          0b0000'0000'0000'0000'1000'0000'0000'0000
-        sign_bit = 0x00001000
-    else: #four bits
-        #            ----------
-        #          0b1000'0000'0000'0000'0000'0000'0000'0000
-        sign_bit = 0x10000000
 
-    sign_bit = sign_bit & value
-    print("\t\t\t\t",thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=sign_bit))
+    print("\n=== SIGN EXTEND DEBUG ===")
+    print(f"from_size={from_size}, to_size={to_size}")
+    print(f"\nOriginal value: 0x{value:08X}")
+    print("Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=value))
 
-    # Create mask for bits [from_size, to_size) that need to be zeroed
+    # Determine shift amount to move sign bit to MSB position
+    if from_size == 8:
+        shift_left = 24
+    elif from_size == 16:
+        shift_left = 16
+    else:  # from_size == 32
+        shift_left = 0
 
-    # Mask with 1s in positions [0, from_size)
-    lower_mask = ~(0xFFFFFFFF << from_size) & 0xFFFFFFFF
+    print(f"\nshift_left = {shift_left} (to move bit {from_size - 1} to bit 31)")
 
-    # Mask with 1s in positions [to_size, 32)
-    if to_size >= 32:  # YOU HAVE TO CHANTGE THIS TO equal(to_size >= 32) IN C BECUASE YOU CAN'T USE LOGICAL OPERATORS. how tf does this benefit me at all?
+    # Shift sign bit to MSB position (bit 31)
+    temp = value << shift_left
+    print(f"\nAfter shifting left by {shift_left}:")
+    print("Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=temp & 0xFFFFFFFF))
+
+    # Mask to 32 bits
+    temp = temp & 0xFFFFFFFF
+
+    # Check the sign bit
+    sign_bit = (temp >> 31) & 1
+    print(f"Sign bit (bit 31): {sign_bit}")
+
+    # Convert to signed integer for arithmetic right shift
+    # In Python, we need to manually handle the sign bit
+    if temp & 0x80000000:  # If MSB is 1 (negative)
+        print("Sign bit is 1 - doing arithmetic right shift (fill with 1s)")
+        # Arithmetic right shift: fill with 1s
+        temp = temp | (0xFFFFFFFF << 32)  # Extend sign for Python's arbitrary precision
+        signed_temp = temp - (1 << 32)  # Convert to negative
+        print(f"Treated as signed: {signed_temp}")
+    else:
+        print("Sign bit is 0 - doing logical right shift (fill with 0s)")
+        signed_temp = temp
+        print(f"Treated as signed: {signed_temp}")
+
+    # Shift back right (arithmetic shift in Python for negative numbers)
+    signed_temp = signed_temp >> shift_left
+    print(f"\nAfter arithmetic shifting right by {shift_left}: {signed_temp}")
+
+    # Convert back to unsigned 32-bit
+    temp = signed_temp & 0xFFFFFFFF
+    print(f"As unsigned 32-bit: 0x{temp:08X}")
+    print("Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=temp))
+
+    # Create mask for the region [from_size, to_size) that needs sign extension
+    lower_mask = ~(0xFFFFFFFF << from_size) & 0xFFFFFFFF  # Keep bits [0, from_size)
+    print(f"\nlower_mask (keep bits [0, {from_size})):")
+    print("Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=lower_mask))
+
+    if to_size >= 32:
         upper_mask = 0
     else:
-        upper_mask = 0xFFFFFFFF << to_size
+        upper_mask = 0xFFFFFFFF << to_size  # Keep bits [to_size, 32)
 
-    # Combine: keep lower bits and upper bits
-    keep_mask = lower_mask | upper_mask
+    upper_mask = upper_mask & 0xFFFFFFFF
+    print(f"\nupper_mask (keep bits [{to_size}, 32)):")
+    print("Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=upper_mask))
 
-    print("\tlower_mask")
-    print("\t\t", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(lower_mask))
-    print("\tupper_mask")
-    print("\t\t", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(upper_mask))
-    print("\tkeep_mask")
-    print("\t\t", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(keep_mask))
-    print("\tvalue")
-    print("\t\t", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(value))
-    print()
+    extension_mask = ~(lower_mask | upper_mask) & 0xFFFFFFFF  # Bits [from_size, to_size) to fill
+    print(f"\nextension_mask (fill bits [{from_size}, {to_size}) with sign):")
+    print("Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=extension_mask))
 
-    return value & keep_mask
+    # Combine: keep original lower bits, sign-extended middle bits, original upper bits
+    print(f"\nCombining parts:")
+    print(f"  value & lower_mask = keep original bits [0, {from_size}):")
+    print("  Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=value & lower_mask))
+
+    print(f"  temp & extension_mask = sign-extended bits [{from_size}, {to_size}):")
+    print("  Binary: ",
+          thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=temp & extension_mask))
+
+    print(f"  value & upper_mask = keep original bits [{to_size}, 32):")
+    print("  Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=value & upper_mask))
+
+    result = (value & lower_mask) | (temp & extension_mask) | (value & upper_mask)
+    result = result & 0xFFFFFFFF
+
+    print(f"\nFinal result: 0x{result:08X}")
+    print("Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=result))
+    print("=== END DEBUG ===\n")
+
+    return result
 
 if __name__ == '__main__':
     sign_extend_intro()
