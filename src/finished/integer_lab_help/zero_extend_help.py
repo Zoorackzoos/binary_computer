@@ -40,7 +40,7 @@ def zero_extend_help(value, from_size, to_size):
     lower_mask = ~(0xFFFFFFFF << from_size) & 0xFFFFFFFF
 
     # Mask with 1s in positions [to_size, 32)
-    if to_size >= 32:
+    if to_size >= 32: #YOU HAVE TO CHANTGE THIS TO equal(to_size >= 32) IN C BECUASE YOU CAN'T USE LOGICAL OPERATORS. how tf does this benefit me at all?
         upper_mask = 0
     else:
         upper_mask = 0xFFFFFFFF << to_size
