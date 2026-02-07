@@ -20,7 +20,11 @@ def old_zero_extend_intro():
 
 def new_zero_extend_intro():
     print("new_zero_extend_intro")
+    print("test 1")
     print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements( zero_extend_help(value=2882400048,from_size=8,to_size=16)) )
+    print()
+    print("test 2")
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements( zero_extend_help(value=2882400048,from_size=8,to_size=32)) )
 
 def zero_extend_help(value, from_size, to_size):
     """
@@ -46,6 +50,8 @@ def zero_extend_help(value, from_size, to_size):
     four_byte_bit_mask_component_one = four_byte_bit_mask_component_one >> to_size
     four_byte_bit_mask_component_two = four_byte_bit_mask_component_two << from_size
 
+    print("\t",thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(four_byte_bit_mask_component_one))
+    print("\t",thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(four_byte_bit_mask_component_two))
     four_byte_bit_mask_full = four_byte_bit_mask_component_one & four_byte_bit_mask_component_two
 
     print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=four_byte_bit_mask_full))
