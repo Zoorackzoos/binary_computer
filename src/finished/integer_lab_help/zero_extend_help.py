@@ -3,7 +3,7 @@ from src.decimal_to_binary.eight_bit.eight_bit_unsigned_decimal_to_binary_array 
 from src.decimal_to_binary.thirty_two_bit.thirty_two_bit_signed_decimal_to_binary import thirty_two_bit_signed_decimal_to_binary_array_no_print_statements
 from src.decimal_to_binary.thirty_two_bit.thirty_two_bit_unsigned_decimal_to_binary_array import thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements,thirty_two_bit_unsigned_decimal_to_binary_array
 
-def zero_extend_intro():
+def old_zero_extend_intro():
     print("zero_extend_intro")
     print(sixteen_bit_signed_decimal_to_binary_array_no_print_statements( zero_extend_help(value=2,from_size=8,to_size=16)))
     print(sixteen_bit_signed_decimal_to_binary_array_no_print_statements( zero_extend_help(value=2,from_size=16,to_size=32)))
@@ -18,22 +18,43 @@ def zero_extend_intro():
     print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=0xABCDEF30))
     print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=0x00000030))
 
+def new_zero_extend_intro():
+    print("new_zero_extend_intro")
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements( zero_extend_help(value=2882400048,from_size=8,to_size=16)) )
+
 def zero_extend_help(value, from_size, to_size):
     """
-    typedef
-    enum
-    {
-        ONE_BYTE = 8,
-        TWO_BYTES = 16,
-        FOUR_BYTES = 32,
+    typedef enum {
+        ONE_BYTE    = 8,
+        TWO_BYTES   = 16,
+        FOUR_BYTES  = 32,
     } data_size_t;
     """
-    if from_size == 8:
-        return value & 0xFF
-    elif from_size == 16:
-        return value & 0xFFFF
-    else:
-        return value
+
+    """
+    1. make a bitmask with the data_size_t vars
+    2. make the value binary literal's range, based off of that bitmask, 0
+        a. use ^ i think.
+    3. spit out the binary literal, that 0ing causes.
+   """
+
+    """ make bitmask """
+    # same as 0x11111111 <- 8 ones
+    #                        0b1111'1111'1111'1111'1111'1111'1111'1111;
+    four_byte_bit_mask_component_one = 0b11111111111111111111111111111111
+    four_byte_bit_mask_component_two = 0b11111111111111111111111111111111
+    four_byte_bit_mask_component_one = four_byte_bit_mask_component_one >> to_size
+    four_byte_bit_mask_component_two = four_byte_bit_mask_component_two << from_size
+
+    four_byte_bit_mask_full = four_byte_bit_mask_component_one & four_byte_bit_mask_component_two
+
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=four_byte_bit_mask_full))
+    print(thirty_two_bit_signed_decimal_to_binary_array_no_print_statements(decimal=~four_byte_bit_mask_full))
+    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=value))
+    print()
+    """ collide value binary literal, with bit mask """
+
+    return value & ~four_byte_bit_mask_full
 
 if __name__ == "__main__":
-    zero_extend_intro()
+    new_zero_extend_intro()
