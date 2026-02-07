@@ -8,7 +8,8 @@ def intro_is_negative():
     print(sixteen_bit_signed_decimal_to_binary_array_no_print_statements(0))
     print(0x8000)
     print(sixteen_bit_signed_decimal_to_binary_array_no_print_statements(32768))
-
+    print()
+    print(0xA000)
 
 def is_negative_prototype(value):
     """
