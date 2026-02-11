@@ -1,6 +1,6 @@
 import math
 
-from src.decimal_to_binary.eight_bit.eight_bit_unsigned_decimal_to_binary_array import eight_bit_unsigned_decimal_to_binary_array_no_print_statements
+from src.finished.decimal_to_binary.eight_bit.eight_bit_unsigned_decimal_to_binary_array import eight_bit_unsigned_decimal_to_binary_array_no_print_statements
 
 
 def intro_exponentiate():

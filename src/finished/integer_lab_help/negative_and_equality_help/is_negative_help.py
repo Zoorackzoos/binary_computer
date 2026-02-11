@@ -1,4 +1,4 @@
-from src.decimal_to_binary.sixteen_bit.sixteen_bit_signed_decimal_to_binary import \
+from src.finished.decimal_to_binary.sixteen_bit.sixteen_bit_signed_decimal_to_binary import \
     sixteen_bit_signed_decimal_to_binary_array_no_print_statements
 
 

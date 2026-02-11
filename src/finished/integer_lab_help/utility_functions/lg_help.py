@@ -1,6 +1,6 @@
 import math
 
-from src.decimal_to_binary.thirty_two_bit.thirty_two_bit_unsigned_decimal_to_binary_array import thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements
+from src.finished.decimal_to_binary.thirty_two_bit.thirty_two_bit_unsigned_decimal_to_binary_array import thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements
 
 def intro_lg():
     print("testing for what the hell lg wants")
