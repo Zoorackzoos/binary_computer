@@ -16,11 +16,11 @@ def get_exponent_brief():
         """
     bitmask_of_exponent_field = 0b01111111100000000000000000000000
     print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=bitmask_of_exponent_field))
-    bitmask_of_exponent_field_bit_shifted = bitmask_of_exponent_field >> (8+8+4+3)
+    bitmask_of_exponent_field_bit_shifted = get_exponent(Ob=bitmask_of_exponent_field)
     print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=bitmask_of_exponent_field_bit_shifted))
 
-def get_exponent():
-    pass
+def get_exponent(Ob):
+    return Ob >> (8+8+4+3)
 
 if __name__ == "__main__":
     get_exponent_brief()
