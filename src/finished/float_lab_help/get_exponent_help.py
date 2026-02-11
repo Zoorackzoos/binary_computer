@@ -1,5 +1,6 @@
 from src.finished.decimal_to_binary.thirty_two_bit.thirty_two_bit_unsigned_decimal_to_binary_array import *
 from src.finished.decimal_to_binary.eight_bit.eight_bit_unsigned_decimal_to_binary_array import *
+from src.finished.float_lab_help.get_bias import get_bias_from_IEEE_exponent_bit_emount
 
 def get_exponent_brief():
     print("get_exponent_brief")
@@ -20,7 +21,7 @@ def get_exponent_brief():
     print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=bitmask_of_exponent_field_bit_shifted))
 
 def get_exponent(Ob):
-    return Ob >> (8+8+4+3)
+    return (Ob >> 23) #- get_bias_from_IEEE_exponent_bit_emount(8)
 
 if __name__ == "__main__":
     get_exponent_brief()
