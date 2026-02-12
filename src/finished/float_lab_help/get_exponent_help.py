@@ -24,4 +24,6 @@ def get_exponent(Ob):
     return (Ob >> 23) #- get_bias_from_IEEE_exponent_bit_emount(8)
 
 if __name__ == "__main__":
-    get_exponent_brief()
+    #get_exponent_brief()
+    print(0b00000000011111111111111111111111)
+    print(0x7FFFFF)
