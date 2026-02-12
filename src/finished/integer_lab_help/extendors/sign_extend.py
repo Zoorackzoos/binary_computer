@@ -1,4 +1,4 @@
-from src.finished.decimal_to_binary.thirty_two_bit.thirty_two_bit_unsigned_decimal_to_binary_array import thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements
+from src.finished.decimal_to_binary.thirty_two_bit.thirty_two_bit_unsigned_decimal_to_binary_array import thirty_two_bit_unsigned_number_to_binary_array_no_print_statements
 
 ONE_BYTE = 8
 TWO_BYTES = 16
@@ -35,10 +35,11 @@ def sign_extend_intro():
     test_2_input_value = 0xABCDEF30
     test_2_expected_result = 0x00000030
     print(test_1_input_value)
-    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=test_1_input_value))
+    print(thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(number=test_1_input_value))
     print(test_1_expected_result)
-    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=test_1_expected_result))
-    print(thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=sign_extend(value=test_1_input_value,from_size=ONE_BYTE,to_size=TWO_BYTES)))
+    print(thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(number=test_1_expected_result))
+    print(thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(
+        number=sign_extend(value=test_1_input_value, from_size=ONE_BYTE, to_size=TWO_BYTES)))
 
 
 def sign_extend(value, from_size, to_size):
@@ -55,7 +56,7 @@ def sign_extend(value, from_size, to_size):
     print("\n=== SIGN EXTEND DEBUG ===")
     print(f"from_size={from_size}, to_size={to_size}")
     print(f"\nOriginal value: 0x{value:08X}")
-    print("Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=value))
+    print("Binary: ", thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(number=value))
 
     # Determine shift amount to move sign bit to MSB position
     if from_size == 8:
@@ -70,7 +71,7 @@ def sign_extend(value, from_size, to_size):
     # Shift sign bit to MSB position (bit 31)
     temp = value << shift_left
     print(f"\nAfter shifting left by {shift_left}:")
-    print("Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=temp & 0xFFFFFFFF))
+    print("Binary: ", thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(number=temp & 0xFFFFFFFF))
 
     # Mask to 32 bits
     temp = temp & 0xFFFFFFFF
@@ -99,12 +100,12 @@ def sign_extend(value, from_size, to_size):
     # Convert back to unsigned 32-bit
     temp = signed_temp & 0xFFFFFFFF
     print(f"As unsigned 32-bit: 0x{temp:08X}")
-    print("Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=temp))
+    print("Binary: ", thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(number=temp))
 
     # Create mask for the region [from_size, to_size) that needs sign extension
     lower_mask = ~(0xFFFFFFFF << from_size) & 0xFFFFFFFF  # Keep bits [0, from_size)
     print(f"\nlower_mask (keep bits [0, {from_size})):")
-    print("Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=lower_mask))
+    print("Binary: ", thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(number=lower_mask))
 
     if to_size >= 32:
         upper_mask = 0
@@ -113,29 +114,29 @@ def sign_extend(value, from_size, to_size):
 
     upper_mask = upper_mask & 0xFFFFFFFF
     print(f"\nupper_mask (keep bits [{to_size}, 32)):")
-    print("Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=upper_mask))
+    print("Binary: ", thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(number=upper_mask))
 
     extension_mask = ~(lower_mask | upper_mask) & 0xFFFFFFFF  # Bits [from_size, to_size) to fill
     print(f"\nextension_mask (fill bits [{from_size}, {to_size}) with sign):")
-    print("Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=extension_mask))
+    print("Binary: ", thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(number=extension_mask))
 
     # Combine: keep original lower bits, sign-extended middle bits, original upper bits
     print(f"\nCombining parts:")
     print(f"  value & lower_mask = keep original bits [0, {from_size}):")
-    print("  Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=value & lower_mask))
+    print("  Binary: ", thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(number=value & lower_mask))
 
     print(f"  temp & extension_mask = sign-extended bits [{from_size}, {to_size}):")
     print("  Binary: ",
-          thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=temp & extension_mask))
+          thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(number=temp & extension_mask))
 
     print(f"  value & upper_mask = keep original bits [{to_size}, 32):")
-    print("  Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=value & upper_mask))
+    print("  Binary: ", thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(number=value & upper_mask))
 
     result = (value & lower_mask) | (temp & extension_mask) | (value & upper_mask)
     result = result & 0xFFFFFFFF
 
     print(f"\nFinal result: 0x{result:08X}")
-    print("Binary: ", thirty_two_bit_unsigned_decimal_to_binary_array_no_print_statements(decimal=result))
+    print("Binary: ", thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(number=result))
     print("=== END DEBUG ===\n")
 
     return result
