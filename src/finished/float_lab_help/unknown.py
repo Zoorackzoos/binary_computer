@@ -1,0 +1,9 @@
+from src.finished.A_universal_functions.thirty_two_bit.thirty_two_bit_unsigned_decimal_to_binary_array import thirty_two_bit_unsigned_number_to_binary_array_no_print_statements,thirty_two_bit_unsigned_number_to_binary_array
+from src.finished.A_universal_functions.thirty_two_bit.float.get_bias import get_bias_from_IEEE_exponent_bit_emount_without_math_class, get_bias_from_IEEE_exponent_bit_emount, thirty_two_bit_unsigned_number_to_binary_array_no_print_statements
+from src.finished.A_universal_functions.thirty_two_bit.float.IEEE_754_header_array_and_stringify_matrix import stringify_matrix, IEEE_754_matrix
+
+
+
+if __name__ == "__main__":
+    print("main started")
+    print("main finished")
