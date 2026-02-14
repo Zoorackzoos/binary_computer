@@ -22,10 +22,12 @@ ex:
 """
 if __name__ == '__main__':
     value1 = 0x40A00000 #epxected
-    value2 = 0x40000000 #got
+    value2 = 0x41000000 #got
     print(IEEE_754_matrix)
     print(stringify_matrix( thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(value1)) )
     print(stringify_matrix( thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(value2)) )
+    print(stringify_matrix( eight_bit_unsigned_decimal_to_binary_array_no_print_statements(0b10000010)))
+    print(0b10000010)
 
 
 
