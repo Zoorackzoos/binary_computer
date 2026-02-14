@@ -21,18 +21,11 @@ ex:
     result -> 1.111 x 2^3 <- 15 
 """
 if __name__ == '__main__':
-    value1 = 0x40A00000
-    value2 = 0x40800000
-    print(stringify_matrix(matrix=IEEE_754_matrix))
-    #print(stringify_matrix(matrix=thirty_two_bit_value_header))
-    print(stringify_matrix(thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(value1)))
-    print(stringify_matrix(thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(value2)))
-    print()
-    #print([1,0,0,0,0,0,0,1])
-    #print([1,0,0,0,0,0,0,1])
-    print(eight_bit_unsigned_decimal_to_binary_array_no_print_statements(1))
-    print(eight_bit_unsigned_decimal_to_binary_array_no_print_statements(5))
-    print(eight_bit_unsigned_decimal_to_binary_array_no_print_statements(5*1))
+    value1 = 0x40A00000 #epxected
+    value2 = 0x40000000 #got
+    print(IEEE_754_matrix)
+    print(stringify_matrix( thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(value1)) )
+    print(stringify_matrix( thirty_two_bit_unsigned_number_to_binary_array_no_print_statements(value2)) )
 
 
 
